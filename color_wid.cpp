@@ -1,6 +1,7 @@
 #include "color_wid.h"
 #include <QPainter>
 #include <QGradient>
+#include <QBitmap>
 #include <QIcon>
 #include <iostream>
 
@@ -105,16 +106,17 @@ void ColorWid::drawTitle()
     qs=QString("CL(S) Score:%1 Free:%2").arg(score).arg(free_cells);
     if (mouse_move_sel) qs+=QString(" St");
     setWindowTitle(qs);
-    QPixmap pix(16,16);
-    pix.fill(Qt::gray);
+    QPixmap pix(90,30);
+    pix.fill(Qt::black);
     QPainter p(&pix);
     for (int i=0;i<3;i++) {
-    p.setPen(color[addballs[i]-1]);
+    p.setPen(Qt::gray);
     p.setBrush(color[addballs[i]-1]);
-    p.drawEllipse(i*5,2,5,12);
+    p.drawEllipse(i*30+2,2,26,26);
     }
     p.end();
-    setWindowIcon(QIcon(pix));
+    pix.setMask(pix.createHeuristicMask());
+    l_next->setPixmap(pix);
     return;
 }
 

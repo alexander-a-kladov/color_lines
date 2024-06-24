@@ -1,6 +1,7 @@
 #include <QWidget>
 #include <QMouseEvent>
 #include <QTimer>
+#include <QLabel>
 #include <time.h>
 #include <iostream>
 #ifndef __COLOR_WID_H__
@@ -22,12 +23,15 @@ class ColorWid : public QWidget
     public:
 	ColorWid(QWidget* parent=0) : QWidget(parent)
 	{
-	    field_width = 360;
+	    field_width = 648;
 	    mouse_move_sel = false;
 	    setMouseTracking(mouse_move_sel);
 	    srand(time(NULL));
 	    setFixedSize(field_width,field_width);
 	    tmr = new QTimer;
+	    l_next = new QLabel(this);
+	    l_next->setGeometry(field_width/2-45,0,90,30);
+	    l_next->setWindowOpacity(0.5);
 	    connect(tmr, SIGNAL(timeout()), this, SLOT(timeOut()));
 	    tmr->start(100);
 	    initParams();
@@ -65,7 +69,7 @@ class ColorWid : public QWidget
 	    animate_ball = -1;
 	    cell_width = field_width/field_size;
 	    cell_number = field_size*field_size;
-	    ball_width = cell_width-8;
+	    ball_width = cell_width-20;
 	    field = new TElement [cell_number];
 	    return;
 	}
@@ -128,6 +132,7 @@ class ColorWid : public QWidget
 	void getPath(int fi,int fj,int si,int sj);
 	bool destroyLines();
     protected:
+    QLabel *l_next;
 	TPos mpos,opos;
 	int mcount;
 	int field_width,cell_width;
