@@ -1,7 +1,6 @@
 #include <QWidget>
 #include <QMouseEvent>
 #include <QTimer>
-#include <QFile>
 #include <time.h>
 #include <iostream>
 #ifndef __COLOR_WID_H__
